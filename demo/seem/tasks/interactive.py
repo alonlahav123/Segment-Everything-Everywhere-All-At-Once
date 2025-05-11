@@ -101,7 +101,7 @@ def interactive_infer_image(model, audio_model, image, tasks, refimg=None, reftx
     audio = None
     if 'Audio' in tasks:
         model.model.task_switch['audio'] = True
-        audio_result = audio_model.transcribe(audio_pth)
+        audio_result = audio_model(audio_pth)
         data['audio'] = [audio_result['text']]
 
     batch_inputs = [data]

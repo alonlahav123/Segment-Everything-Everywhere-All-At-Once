@@ -14,7 +14,8 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 import gradio as gr
 import torch
 import argparse
-import whisper
+# import whisper
+from transformers import pipeline
 import numpy as np
 
 from gradio import processing_utils
@@ -62,7 +63,12 @@ with torch.no_grad():
 '''
 audio
 '''
-audio = whisper.load_model("base")
+# audio = whisper.load_model("base")
+audio = pipeline(
+    "automatic-speech-recognition",
+    model="openai/whisper-small",      # or "openai/whisper-base", etc.
+    device=-1                           # CPU: -1, or GPU index
+)
 
 @torch.no_grad()
 def inference(image, task, *args, **kwargs):
